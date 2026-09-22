@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,12 +26,30 @@ public class JwtService {
     private final SecretKey secretKey;
 
     @Value("jwt.expiration")
-    private int expirationTime;
+    private long expirationTime;
 
     public JwtService(@Value("${jwt.secret}") String secret) {
         this.secretKey = Keys.hmacShaKeyFor(
                 secret.getBytes(StandardCharsets.UTF_8)
         );
+    }
+
+    public String generateToken(AuthenticatedUser authUser) {
+        Date now = new Date();
+        return Jwts.builder()
+                .subject(authUser.getEmail())
+                .issuedAt(now)
+                .expiration(Date.from(now.toInstant().plus(Duration.ofMillis(expirationTime))))
+                .claim("Id", authUser.getId())
+                .claim(
+                        "Roles",
+                        authUser.getAuthorities()
+                                .stream()
+                                .map(GrantedAuthority::getAuthority)
+                                .toList()
+                )
+                .signWith(secretKey)
+                .compact();
     }
 
     public boolean isTokenValid(String token) {
