@@ -11,7 +11,7 @@ Create a platform where study sessions about either specific topics or broader s
 
 ### Tech Stack
   <a href="https://skillicons.dev">
-    <img src="https://skillicons.dev/icons?i=java,spring,kafka,mongodb,react&theme=dark"/>
+    <img src="https://skillicons.dev/icons?i=java,spring,kafka,mongodb,react,docker&theme=dark"/>
   </a>
 
 ### Goal
