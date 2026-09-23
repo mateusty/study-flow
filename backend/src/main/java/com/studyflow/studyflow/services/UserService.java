@@ -1,6 +1,7 @@
 package com.studyflow.studyflow.services;
 
 import com.studyflow.studyflow.entities.User;
+import com.studyflow.studyflow.exceptions.NotFoundException;
 import com.studyflow.studyflow.model.UserRegisterDTO;
 import com.studyflow.studyflow.repositories.UserRepository;
 import com.studyflow.studyflow.security.AuthenticatedUser;
@@ -36,23 +37,19 @@ public class UserService {
     public String loginUser(UserRegisterDTO user) {
         User dbUser = userRepository.findByEmail(user.getEmail());
 
-        if(doPasswordMatch(user.getPassword(), dbUser.getPassword())) {
-            Collection<GrantedAuthority> authorities = dbUser.getRoles()
-                    .stream()
-                    .map(SimpleGrantedAuthority::new)
-                    .collect(Collectors.toList());
-            AuthenticatedUser authUser = new AuthenticatedUser(UUID.fromString(dbUser.getId()), dbUser.getEmail(), authorities);
-            return jwtService.generateToken(authUser);
+        if(!doPasswordMatch(user.getPassword(), dbUser.getPassword())) {
+            throw new NotFoundException("Não existe um usuário cadastrado com o email: " + user.getEmail());
         }
-        return null;
+        Collection<GrantedAuthority> authorities = dbUser.getRoles()
+                .stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+        AuthenticatedUser authUser = new AuthenticatedUser(UUID.fromString(dbUser.getId()), dbUser.getEmail(), authorities);
+        return jwtService.generateToken(authUser);
     }
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
-    }
-
-    public void deleteUser(UUID id) {
-        userRepository.deleteById(id);
     }
 
     public String hashPassword(String password) {
