@@ -19,6 +19,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtService {
@@ -83,9 +84,11 @@ public class JwtService {
 
         UUID id = UUID.fromString(claims.get("Id", String.class));
         String email = claims.get("Email", String.class);
-        String role = claims.get("Role", String.class);
+        List<String> roles = claims.get("Roles", List.class);
 
-        Collection<GrantedAuthority> authorities = List.of(new SimpleGrantedAuthority("ROLE_" + role));
+        Collection<GrantedAuthority> authorities = roles.stream()
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                .collect(Collectors.toList());
 
         return new AuthenticatedUser(id, email, authorities);
     }

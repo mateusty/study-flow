@@ -44,7 +44,7 @@ public class UserService {
                 .stream()
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
-        AuthenticatedUser authUser = new AuthenticatedUser(UUID.fromString(dbUser.getId()), dbUser.getEmail(), authorities);
+        AuthenticatedUser authUser = new AuthenticatedUser(dbUser.getId(), dbUser.getEmail(), authorities);
         return jwtService.generateToken(authUser);
     }
 

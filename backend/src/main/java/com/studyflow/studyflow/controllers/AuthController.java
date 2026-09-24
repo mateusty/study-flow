@@ -1,6 +1,7 @@
 package com.studyflow.studyflow.controllers;
 
 import com.studyflow.studyflow.entities.User;
+import com.studyflow.studyflow.model.TokenResponse;
 import com.studyflow.studyflow.model.UserRegisterDTO;
 import com.studyflow.studyflow.services.UserService;
 import jakarta.validation.Valid;
@@ -26,9 +27,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@Valid @RequestBody UserRegisterDTO user) {
+    public ResponseEntity<TokenResponse> loginUser(@Valid @RequestBody UserRegisterDTO user) {
         String token = userService.loginUser(user);
-        return ResponseEntity.ok(token);
+        return ResponseEntity.ok(new TokenResponse(token));
     }
 
     @GetMapping
