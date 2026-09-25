@@ -1,6 +1,6 @@
 @echo off
 
-docker compose up -d
+docker compose up --build
 
 start http://localhost:5173
 

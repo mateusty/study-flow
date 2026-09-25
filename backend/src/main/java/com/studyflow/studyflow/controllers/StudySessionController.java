@@ -8,10 +8,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
@@ -27,5 +26,23 @@ public class StudySessionController {
     ) {
         StudySession session = studySessionService.postStudySession(request, user.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(session);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> putStudySession(
+            @AuthenticationPrincipal AuthenticatedUser user,
+            @RequestBody StudySessionRequest request,
+            @PathVariable UUID id
+            ) {
+        studySessionService.putStudySession(request, id, user.getId());
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteStudySession(
+            @PathVariable UUID id
+    ) {
+        studySessionService.deleteStudySession(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

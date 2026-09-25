@@ -28,4 +28,23 @@ public class StudySessionService {
         studySessionRepository.insert(session);
         return session;
     }
+
+    public void putStudySession(StudySessionRequest request, UUID id, UUID userId) {
+        StudySession session = new StudySession(
+                id,
+                userId,
+                request.getSubject(),
+                request.getTopic(),
+                request.getActivity(),
+                request.getStartedAt(),
+                request.getFinishedAt(),
+                request.getStatus(),
+                request.getNotes()
+        );
+        studySessionRepository.save(session);
+    }
+
+    public void deleteStudySession(UUID id) {
+        studySessionRepository.deleteById(id);
+    }
 }
