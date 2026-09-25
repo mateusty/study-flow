@@ -1,7 +1,7 @@
 package com.studyflow.studyflow.controllers;
 
-import com.studyflow.studyflow.entities.StudySession;
 import com.studyflow.studyflow.model.StudySessionRequest;
+import com.studyflow.studyflow.model.StudySessionResponse;
 import com.studyflow.studyflow.security.AuthenticatedUser;
 import com.studyflow.studyflow.services.StudySessionService;
 import lombok.AllArgsConstructor;
@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -20,11 +21,11 @@ public class StudySessionController {
     private StudySessionService studySessionService;
 
     @PostMapping
-    public ResponseEntity<StudySession> postStudySession(
+    public ResponseEntity<StudySessionResponse> postStudySession(
             @AuthenticationPrincipal AuthenticatedUser user,
             @RequestBody StudySessionRequest request
     ) {
-        StudySession session = studySessionService.postStudySession(request, user.getId());
+        StudySessionResponse session = studySessionService.postStudySession(request, user.getId());
         return ResponseEntity.status(HttpStatus.CREATED).body(session);
     }
 
@@ -40,9 +41,17 @@ public class StudySessionController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStudySession(
+            @AuthenticationPrincipal AuthenticatedUser user,
             @PathVariable UUID id
     ) {
-        studySessionService.deleteStudySession(id);
+        studySessionService.deleteStudySession(id, user.getId());
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @GetMapping
+    public ResponseEntity<List<StudySessionResponse>> getStudySessions(
+            @AuthenticationPrincipal AuthenticatedUser user
+    ) {
+        return ResponseEntity.ok(studySessionService.getStudySessions(user.getId()));
     }
 }
