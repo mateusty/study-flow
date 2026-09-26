@@ -1,0 +1,44 @@
+.page { min-height: 100vh; display: grid; grid-template-columns: minmax(420px,1.05fr) minmax(420px,.95fr); background: #fffefa; }
+.page :global(.login-story) { position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh; padding: 40px clamp(36px,7vw,104px) 30px; color: #f7f6ed; background: #183c32; isolation: isolate; }
+.page :global(.login-story)::before { content: ''; position: absolute; inset: 0; z-index: -1; opacity: .15; background-image: radial-gradient(#c8dfbe .7px,transparent .7px); background-size: 18px 18px; mask-image: linear-gradient(130deg,#000 5%,transparent 85%); }
+.page :global(.story-content) { position: relative; z-index: 2; max-width: 500px; margin: 5vh 0 7vh; animation: revealUp .6s ease both; }
+.page :global(.eyebrow) { display: inline-flex; align-items: center; gap: 8px; color: #c6e291; font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; }
+.page :global(.story-content) h1 { margin: 24px 0 18px; color: #f9f7ec; font: 400 clamp(48px,6vw,76px)/.99 var(--serif); }
+.page :global(.story-content) > p { max-width: 350px; color: #c8d4c8; font-size: 15px; line-height: 1.7; }
+.page :global(.story-note) { display: flex; align-items: center; gap: 12px; margin-top: 52px; color: #e1eadb; font-size: 12px; }
+.page :global(.note-line) { width: 38px; height: 1px; background: #a8cb73; }
+.page :global(.story-footer),.page :global(.login-topline),.page :global(.login-bottomline) { display: flex; justify-content: space-between; gap: 14px; color: #96a99a; font-size: 9px; font-weight: 600; letter-spacing: 1px; }
+.page :global(.story-orbit) { position: absolute; z-index: -1; border: 1px solid rgba(197,226,145,.18); border-radius: 50%; }
+.page :global(.orbit-one) { width: 450px; height: 450px; right: -180px; bottom: 10%; }
+.page :global(.orbit-two) { width: 310px; height: 310px; right: -110px; bottom: calc(10% + 70px); border-color: rgba(197,226,145,.12); }
+.page :global(.login-panel) { display: flex; flex-direction: column; justify-content: space-between; min-height: 100vh; padding: 40px clamp(32px,6vw,88px) 30px; background: radial-gradient(ellipse at 95% 0%,rgba(242,239,220,.55),transparent 38%),#fffefa; }
+.page :global(.login-topline),.page :global(.login-bottomline) { color: #92958c; }
+.page :global(.login-form-wrap) { width: min(100%,390px); margin: 5vh auto; animation: revealUp .55s .08s ease both; }
+.page :global(.form-kicker) { display: inline-flex; align-items: center; gap: 8px; color: #6d8d50; font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; }
+.page :global(.login-form-wrap) h2 { margin: 12px 0 5px; color: var(--ink); font: 400 43px/1.15 var(--serif); }
+.page :global(.muted) { color: #858980; font-size: 13px; }
+.page :global(.login-form) { display: flex; flex-direction: column; gap: 10px; margin-top: 36px; }
+.page :global(.label-row) { display: flex; justify-content: space-between; align-items: center; margin-top: 9px; }
+.page :global(.text-button) { padding: 0; color: #527446; background: none; border: 0; cursor: pointer; font-size: 11px; font-weight: 600; }
+.page :global(.button-full) { width: 100%; min-height: 48px; justify-content: space-between; margin-top: 16px; padding-inline: 16px; }
+.page :global(.login-footnote) { margin-top: 24px; color: #83887e; font-size: 11px; text-align: center; }
+.page :global(.login-footnote) :global(.text-button) { margin-left: 4px; }
+
+@keyframes revealUp { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 780px) {
+  .page { grid-template-columns: 1fr; }
+  .page :global(.login-story) { min-height: 340px; padding: 25px 27px 19px; }
+  .page :global(.story-content) { margin: 0 0 29px; }
+  .page :global(.story-content) h1 { margin: 15px 0 10px; font-size: 49px; }
+  .page :global(.story-content) > p { font-size: 13px; }
+  .page :global(.story-note) { margin-top: 20px; }
+  .page :global(.login-panel) { min-height: 550px; padding: 24px 27px; }
+  .page :global(.login-form-wrap) { margin: 40px auto; }
+}
+
+@media (max-width: 590px) {
+  .page :global(.login-topline) span:last-child,.page :global(.login-bottomline) span:first-child { display: none; }
+  .page :global(.login-panel) { min-height: 540px; }
+  .page :global(.login-story) { min-height: 350px; }
+}

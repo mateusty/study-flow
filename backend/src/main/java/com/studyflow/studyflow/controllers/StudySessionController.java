@@ -15,7 +15,7 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/study-session")
+@RequestMapping("/study-sessions")
 public class StudySessionController {
 
     private StudySessionService studySessionService;

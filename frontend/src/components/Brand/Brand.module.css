@@ -1,0 +1,25 @@
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  color: #f6f6eb;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  color: #183c32;
+  background: #c4e48e;
+  border-radius: 10px 10px 10px 3px;
+}
+
+.light {
+  position: relative;
+  z-index: 2;
+}
