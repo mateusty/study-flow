@@ -4,6 +4,7 @@ import { AppShell } from './components'
 import DashboardPage from './pages/DashboardPage/DashboardPage'
 import LoginPage from './pages/LoginPage/LoginPage'
 import NewSessionPage from './pages/NewSessionPage/NewSessionPage'
+import RegisterPage from './pages/RegisterPage/RegisterPage'
 import { authApi } from './api'
 import type { LoginCredentials } from './types'
 
@@ -24,6 +25,7 @@ function App() {
   return <BrowserRouter>
     <Routes>
       <Route path="/login" element={authenticated ? <Navigate to="/dashboard" replace /> : <LoginPage onLogin={login} />} />
+      <Route path="/register" element={authenticated ? <Navigate to="/dashboard" replace /> : <RegisterPage />} />
       <Route path="/" element={<Navigate to={authenticated ? '/dashboard' : '/login'} replace />} />
       <Route path="/dashboard" element={authenticated
         ? <AppShell onLogout={logout}><DashboardPage /></AppShell>

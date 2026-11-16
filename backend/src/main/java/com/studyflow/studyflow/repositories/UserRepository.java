@@ -1,10 +1,10 @@
 package com.studyflow.studyflow.repositories;
 
 import com.studyflow.studyflow.entities.User;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
 
-public interface UserRepository extends MongoRepository<User, UUID> {
+public interface UserRepository extends JpaRepository<User, UUID> {
     User findByEmail(String email);
 }

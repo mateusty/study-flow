@@ -31,7 +31,7 @@ public class UserService {
         newUser.setEmail(user.getEmail());
         newUser.setPassword(hashedPassword);
         newUser.setRoles(List.of("USER"));
-        userRepository.insert(newUser);
+        userRepository.save(newUser);
     }
 
     public String loginUser(UserRegisterDTO user) {

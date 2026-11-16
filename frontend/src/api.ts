@@ -15,6 +15,7 @@ http.interceptors.request.use((config) => {
 })
 
 export const authApi = {
+  register: (credentials: LoginCredentials) => http.post<void>('/auth/register', credentials),
   login: (credentials: LoginCredentials) => http.post('/auth/login', credentials),
 }
 

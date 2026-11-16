@@ -1,12 +1,13 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { ArrowUpRight, Sparkles } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Brand } from '../../components'
 import { getApiErrorMessage } from '../../utils/apiErrors'
 import styles from './LoginPage.module.css'
 
 export default function LoginPage({ onLogin }: { onLogin: (credentials: { email: string; password: string }) => Promise<void> }) {
+  const location = useLocation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -45,6 +46,7 @@ export default function LoginPage({ onLogin }: { onLogin: (credentials: { email:
         <span className="form-kicker">Your desk is ready</span>
         <h2>Sign in</h2>
         <p className="muted">Pick up where your curiosity left off.</p>
+        {location.state?.registrationComplete === true && <p className="request-success" role="status">Account created. You can sign in now.</p>}
         <form className="login-form" onSubmit={submit}>
           <label htmlFor="email">Email address</label>
           <input id="email" type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} required />
@@ -53,6 +55,7 @@ export default function LoginPage({ onLogin }: { onLogin: (credentials: { email:
           {error && <p className="request-error" role="alert">{error}</p>}
           <button type="submit" className="button button-primary button-full" disabled={submitting}>{submitting ? 'Signing in...' : 'Sign in'} <ArrowUpRight size={16} /></button>
         </form>
+        <p className="login-footnote">New to Study Flow? <Link to="/register" className="text-button">Create an account</Link></p>
       </div>
       <div className="login-bottomline"><span>LEARN AT YOUR OWN PACE</span><span>© STUDYFLOW</span></div>
     </section>

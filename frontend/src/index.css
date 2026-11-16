@@ -37,6 +37,7 @@ h1, h2 { font-weight: 400; }
 .button-quiet { color: #61715e; border-color: #e1e5db; background: rgba(255,254,250,.7); }
 .button-coral { color: #fff9f4; background: #c65d49; }
 .request-error { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 12px 0 0; padding: 10px 12px; color: #8a4036; border: 1px solid #ecd0c9; border-radius: 4px; background: #fbefec; font-size: 11px; }
+.request-success { margin-top: 16px; padding: 10px 12px; color: #365b3d; border: 1px solid #d5e5d0; border-radius: 4px; background: #f0f7ed; font-size: 12px; }
 
 .login-form label, .field { color: #38433b; font-size: 12px; font-weight: 600; }
 .login-form input, .field input, .field select, .field textarea { width: 100%; min-height: 45px; padding: 0 14px; color: #303a32; background: rgba(255,255,255,.78); border: 1px solid #e2e5dc; border-radius: 5px; outline: none; transition: border-color .16s,box-shadow .16s; }
