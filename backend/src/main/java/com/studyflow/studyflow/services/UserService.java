@@ -2,6 +2,7 @@ package com.studyflow.studyflow.services;
 
 import com.studyflow.studyflow.entities.User;
 import com.studyflow.studyflow.exceptions.NotFoundException;
+import com.studyflow.studyflow.model.SendWelcomeEmailPayload;
 import com.studyflow.studyflow.model.UserRegisterDTO;
 import com.studyflow.studyflow.repositories.UserRepository;
 import com.studyflow.studyflow.security.AuthenticatedUser;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 public class UserService {
 
     private PasswordEncoder passwordEncoder;
+    private N8nService n8nService;
     private UserRepository userRepository;
     private JwtService jwtService;
 
@@ -32,6 +34,13 @@ public class UserService {
         newUser.setPassword(hashedPassword);
         newUser.setRoles(List.of("USER"));
         userRepository.save(newUser);
+
+        n8nService.sendWelcomeEmail(
+                new SendWelcomeEmailPayload(
+                        user.getEmail(),
+                        user.getName()
+                )
+        );
     }
 
     public String loginUser(UserRegisterDTO user) {

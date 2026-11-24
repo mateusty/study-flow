@@ -16,6 +16,9 @@ public class UserRegisterDTO {
     @NotNull
     private String email;
 
+    @NotNull
+    private String name;
+
     @NotBlank
     private String password;
 }

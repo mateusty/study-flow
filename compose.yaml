@@ -9,6 +9,7 @@ services:
             DB_NAME: study_flow
             DB_USERNAME: postgres
             DB_PASSWORD: ${DB_PASSWORD}
+            N8N_WEBHOOK_URL: ${N8N_WEBHOOK_URL}
         depends_on:
             postgres:
                 condition: service_healthy
