@@ -1,0 +1,96 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "fromEmail": "noreply@studyflow.com",
+        "toEmail": "={{ $json.body.email }}",
+        "subject": "=Conta criada - Study Flow!",
+        "text": "=",
+        "html": "={{ $json.html }}"
+      },
+      "type": "n8n-nodes-base.mailgun",
+      "typeVersion": 1,
+      "position": [
+        448,
+        -192
+      ],
+      "id": "4662d0f0-ea45-4e2e-8798-ff8bfb302a34",
+      "name": "Mailgun",
+      "credentials": {
+        "mailgunApi": {
+          "id": "a70WfrxgGtla1ytE",
+          "name": "Mailgun account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "send-email",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d5b5f36f-2782-42ac-99fb-3bebbe89a240",
+      "name": "Webhook",
+      "webhookId": "9bfe96d5-e4f3-4d8a-aafb-681b3aa934e5",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst { name } = $json.body;\n\nconst html = `\n<!DOCTYPE html>\n<html lang=\"pt-BR\">\n<head>\n  <meta charset=\"UTF-8\">\n</head>\n<body style=\"\n  margin: 0;\n  padding: 30px 10px;\n  background-color: #f1f5f9;\n  font-family: Arial, sans-serif;\n\">\n  <div style=\"\n    max-width: 560px;\n    margin: auto;\n    background: #ffffff;\n    border-radius: 12px;\n    overflow: hidden;\n  \">\n    <div style=\"\n      background: #172554;\n      padding: 25px;\n      text-align: center;\n      color: white;\n    \">\n      <h1>Study Flow</h1>\n    </div>\n\n    <div style=\"padding: 30px;\">\n      <h2>Bem-vindo, ${name}!</h2>\n\n      <p>\n        Sua conta foi criada com sucesso.\n        Estamos felizes em ter você conosco!\n      </p>\n\n      <a href=\"http://localhost:5173/login\"\n         style=\"\n           display: inline-block;\n           padding: 12px 24px;\n           background: #2563eb;\n           color: white;\n           text-decoration: none;\n           border-radius: 6px;\n         \">\n        Acessar Study Flow\n      </a>\n    </div>\n  </div>\n</body>\n</html>\n`;\n\nreturn [{\n  json: {\n    ...$json,\n    html\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        -192
+      ],
+      "id": "89691fa3-0041-412f-abaf-f72ab3e99e8e",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Mailgun",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "f0281edb-dced-482b-83f3-1f74cc3caf11",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "876639b9fc39750c38dee35fcb928392b4d7135994e6779021d73cf6b5de03f7"
+  },
+  "nodeGroups": [],
+  "id": "RYlHB74JFkyYHDEE",
+  "tags": []
+}
